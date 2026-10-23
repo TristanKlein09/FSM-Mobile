@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Initialising the components
+        //Initialising the components
         tvStatusLabel = findViewById(R.id.tvStatusLabel)
         HttpClient.initialise(this)
 
