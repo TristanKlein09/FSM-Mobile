@@ -54,6 +54,7 @@ object HttpClient {
                 if (response.code == 202) { //Login successful
                     //TODO: Load in the Main Calendar View Activity
 
+
                 } else if (response.code == 401) { //Login unsuccessful
                     //TODO: Give feedback to the user to reprompt the credentials
 

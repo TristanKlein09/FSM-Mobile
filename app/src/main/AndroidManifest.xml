@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FSMMobile">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
