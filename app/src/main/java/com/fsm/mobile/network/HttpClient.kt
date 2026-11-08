@@ -1,6 +1,10 @@
 package com.fsm.mobile.network
 
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
+import com.fsm.mobile.HomeActivity
+import com.fsm.mobile.LoginActivity
 import com.fsm.mobile.Util
 import okhttp3.Call
 import okhttp3.Callback
@@ -53,13 +57,18 @@ object HttpClient {
 
                 if (response.code == 202) { //Login successful
                     //TODO: Load in the Main Calendar View Activity
-
+                    val loginActivity = LoginActivity()
+                    loginActivity.switchToHomeActivity()
 
                 } else if (response.code == 401) { //Login unsuccessful
                     //TODO: Give feedback to the user to reprompt the credentials
+                    val loginActivity = LoginActivity()
+                    loginActivity.setPromptError("Wrong credentials. Try again.")
 
-                } else { //Error has occured due to unexpected server response
+                } else { //Error has occurred due to unexpected server response
                     //TODO: Give feedback to the user to try again and that an error has occurred
+                    val loginActivity = LoginActivity()
+                    loginActivity.setPromptError("Error has occurred. Try again later.")
 
                 }
 
@@ -69,6 +78,8 @@ object HttpClient {
             override fun onFailure(call: Call, e: IOException) {
                 println("No response sent")
                 //TODO: This is the place where we can call functions to change UI to show user that a server error has occurred
+                val loginActivity = LoginActivity()
+                loginActivity.setPromptError("Error has occurred. Try again later.")
             }
         })
     }
