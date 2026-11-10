@@ -32,9 +32,22 @@ class LoginActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.etPassword)
         buttonLogin = findViewById(R.id.buttonLogin)
 
+
         //Listeners
         buttonLogin.setOnClickListener {
             HttpClient.login(etUsername.text.toString(), etPassword.text.toString())
+        }
+
+        //Resetting the mobile.properties file to the default state if it is the first startup
+        val prefs = getSharedPreferences("com.fsm.mobile", MODE_PRIVATE)
+        val isFirstLaunch = prefs.getBoolean("first_launch", true)
+        //Use when you want to edit the ip address and port number
+        prefs.edit().putString("server_ip", "192.168.0.181").putString("server_port", "9999").apply()
+
+        HttpClient.initialise(this)
+
+        if (isFirstLaunch) {
+            prefs.edit().putBoolean("first_launch", false).apply()
         }
 
     }
