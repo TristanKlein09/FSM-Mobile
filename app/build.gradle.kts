@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    kotlin("plugin.serialization") version "2.1.0" // or your Kotlin version
 }
 
 android {
@@ -42,4 +43,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     implementation("com.squareup.okhttp3:okhttp:5.5.0") //okhttp
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0") //json Serialisation
 }
