@@ -1,9 +1,13 @@
 package com.fsm.mobile.network
 
+import com.fsm.mobile.models.Credentials
+import com.fsm.mobile.models.Pair
+
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.util.Log
-import com.fsm.mobile.models.Credentials
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.Callback
@@ -16,7 +20,7 @@ import okio.IOException
 import java.util.concurrent.TimeUnit
 
 object HttpClient {
-    private val client = OkHttpClient()
+    private var client = OkHttpClient()
     private val callTimeout = 15//Maximum time to wait for the entire client-server communication process (seconds)
     private lateinit var SERVER_URL: String
 
@@ -28,7 +32,7 @@ object HttpClient {
         Log.i("Self", "Server URL: ${this.SERVER_URL}")
 
         //Specifying the properties of the client
-        client.newBuilder()
+        client = OkHttpClient.Builder()
             //maximum time to wait for the entire client-server communication process
             .callTimeout(callTimeout.toLong(), TimeUnit.SECONDS)
             .build()
@@ -38,9 +42,20 @@ object HttpClient {
         client.newCall(request).enqueue(callback)
     }
 
-    //TODO: Split this up into more classes and functions when it is fully working
-    //TODO: Write login function
-    fun login(username: String, password: String) {
+
+    //TODO: Split this up into more classes and functions when it is fully working (might already be okay)
+    //TODO: Write unit tests for this
+    //Marked as suspend so it can be called from coroutines (background threads) without blocking
+    /**
+     * Sends a login request to the server. If the response is 202, it loads the home activity view.
+     * @param username
+     * @param password
+     * @return A Pair<Boolean, String>, where the Boolean states if the login was successful, and the
+     * String states the nature of the problem (if any)
+     */
+    suspend fun login(username: String, password: String): Pair<Boolean, String> = withContext(
+        Dispatchers.IO){
+        var success = Pair<Boolean, String>(false, "") //Initialising the return variable
         //Serialising username and password to json
         val credentials = Credentials(username, password)
         val jsonCredentials = Json.encodeToString(credentials)
@@ -49,30 +64,24 @@ object HttpClient {
         val body = jsonCredentials.toRequestBody(bodyType)
         //Constructing the request
         val request = Request.Builder()
-            .url("${this.SERVER_URL}/models/login")
+            .url("${SERVER_URL}/models/login")
             .post(body)
+            .header("Accept-encoding", "text/plain")
+            .header("Content-Type", "application/json")
             .build()
 
-        this.sendRequest(request, object: Callback {
-            //Checks the status code of the response
-            override fun onResponse(call: Call, response: Response) {
-                if (response.code == 202) { //Login successful
-                    //TODO: Load Main View Activity
-                    Log.i("Self", "Login successful")
-                } else if (response.code == 401) { //Login unsuccessful
-                    //TODO: Provide visual feedback to the user to update the credentials
-                    Log.i("Self", "Login unsuccessful")
-                } else { //Error has occurred due to unexpected server response
-                    //TODO: Provide visual feedback to the user to that an error has occurred
-                    Log.i("Self", "Unexpected server response during login")
-                }
-            }
 
-            override fun onFailure(call: Call, e: IOException) {
-                //TODO: Provide visual feedback to the user that an error has occurred
-                Log.i("Self", "No response sent during login")
+        try {
+            val response = client.newCall(request).execute()
+            when (response.code) {
+                202 -> Pair(true, "Success")
+                401 -> Pair(false, "Incorrect credentials")
+                else -> Pair(false, "Unexpected server error occurred")
             }
-        })
+        } catch (e: IOException) {
+            Pair(false, "No response from server")
+        }
+
     }
 
 }
