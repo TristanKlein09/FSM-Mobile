@@ -3,18 +3,20 @@ package com.fsm.mobile.service
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import com.fsm.mobile.permission.PermissionService
 import com.fsm.mobile.permission.PermissionType
-import kotlinx.coroutines.suspendCancellableCoroutine
-import java.util.jar.Manifest
 
+/**
+ * Implementation of [PermissionService]. Responsible for the global management of application permissions
+ */
 class AndroidPermissionService(private val context: Context): PermissionService{
 
-//    //IDE gives error if not specified that it cant be null
-//    private var callback: ((Boolean) -> Unit)? = null
-
+    /**
+     * Checks if the app has been granted a certain permission
+     * @param permission [PermissionType] which indicates the type of permission
+     * @return [Boolean] which states whether the permission is granted or not.
+     */
     override fun requestPermission(permission: PermissionType): Boolean {
         val activity = context as Activity
 
@@ -24,6 +26,11 @@ class AndroidPermissionService(private val context: Context): PermissionService{
 
     }
 
+    /**
+     * Checks whether the ACCESS_LOCAL_NETWORK permission has been granted. If not it will open the prompt to ask the
+     * user for that permission
+     * @return whether the permission has been granted
+     */
     private fun requestACCESS_LOCAL_NETWORK(): Boolean {
         //If permission is not already granted, then open up the window to ask for it
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_LOCAL_NETWORK) != PackageManager.PERMISSION_GRANTED) {

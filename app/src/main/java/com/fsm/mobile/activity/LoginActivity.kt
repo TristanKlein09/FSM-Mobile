@@ -19,6 +19,9 @@ import com.fsm.mobile.service.AndroidActivityService
 import com.fsm.mobile.service.AndroidPermissionService
 import kotlinx.coroutines.launch
 
+/**
+ * The activity for the login screen, allows the user to enter their username and password and login.
+ */
 class LoginActivity: AppCompatActivity() {
     //Components
     private lateinit var tvUsername: TextView
@@ -55,29 +58,11 @@ class LoginActivity: AppCompatActivity() {
 
         //Ask for necessary permissions
         androidPermissionService = AndroidPermissionService(this)
-        this.hasLocalNetPermission = androidPermissionService.requestPermission(PermissionType.ACCESS_LOCAL_NETWORK)
-        Log.i("Self", "Has ACCESS_LOCAL_NETWORK permission: ${this.hasLocalNetPermission}")
-
-
 
         //Listeners
         buttonLogin.setOnClickListener {
             Log.i("Self", "Login button pressed")
-
-            //Coroutine
-//            lifecycleScope.launch {
-//                if (hasLocalNetPermission) {
-//                    login(etUsername.text.toString(), etPassword.text.toString())
-//                } else {
-//                    //Reprompt for permission again
-//                    hasLocalNetPermission = androidPermissionService.requestPermission(PermissionType.ACCESS_LOCAL_NETWORK)
-//
-//                    if (hasLocalNetPermission) {
-//                        login(etUsername.text.toString(), etPassword.text.toString())
-//                    }
-//                }
-//
-//            }
+            Log.i("Self", "Has ACCESS_LOCAL_NETWORK permission: ${this.hasLocalNetPermission}")
 
             if (hasLocalNetPermission) { //Has permission
                 lifecycleScope.launch{
@@ -93,6 +78,12 @@ class LoginActivity: AppCompatActivity() {
     }
 
     //TODO: Explore the possibility of using custom exceptions and then try catch?
+    /**
+     * Logs the user in and changes the prompt label's text to give visual feedback to the user if
+     * the process fails.
+     * @param username username to authenticate
+     * @param password password to authenticate
+     */
     private suspend fun login(username: String, password: String) {
         val canLogin = HttpClient.login(this, this, username, password)
 
@@ -120,6 +111,11 @@ class LoginActivity: AppCompatActivity() {
     }
 
     //This function is called automatically by android after the permission dialogue closes
+    /**
+     * Function is called automatically by android after the permission prompt closes.
+     * Checks if permission was granted to use the local network and if so automatically logs in the
+     * user.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -127,7 +123,6 @@ class LoginActivity: AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        //TODO: Check if this can be replaces with ContextCompat.checkSelfPermission
         if (grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             this.hasLocalNetPermission = true
 
@@ -144,6 +139,10 @@ class LoginActivity: AppCompatActivity() {
         }
     }
 
+    /**
+     * Changes the text of the prompt label
+     * @param text Text to change the prompt label to
+     */
     private fun setPrompt(text: String) {
         tvPrompt.text = text;
     }
