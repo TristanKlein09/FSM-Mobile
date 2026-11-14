@@ -1,11 +1,14 @@
 package com.fsm.mobile.network
 
+import android.app.Activity
 import com.fsm.mobile.models.Credentials
 import com.fsm.mobile.models.Pair
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -53,7 +56,7 @@ object HttpClient {
      * @return A Pair<Boolean, String>, where the Boolean states if the login was successful, and the
      * String states the nature of the problem (if any)
      */
-    suspend fun login(username: String, password: String): Pair<Boolean, String> = withContext(
+    suspend fun login(activity: Activity, context: Context, username: String, password: String): Pair<Boolean, String> = withContext(
         Dispatchers.IO){
         var success = Pair<Boolean, String>(false, "") //Initialising the return variable
         //Serialising username and password to json
@@ -79,6 +82,7 @@ object HttpClient {
                 else -> Pair(false, "Unexpected server error occurred")
             }
         } catch (e: IOException) {
+            Log.e("Self", "Connection failed: ${e.message}", e)
             Pair(false, "No response from server")
         }
 

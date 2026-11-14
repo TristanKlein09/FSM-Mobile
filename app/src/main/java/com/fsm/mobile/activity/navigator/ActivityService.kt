@@ -1,5 +1,5 @@
 package com.fsm.mobile.activity.navigator
 
-interface ActivityNavigator {
+interface ActivityService {
     fun navigateTo(target: ActivityTarget)
 }
