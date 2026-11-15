@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fsm.mobile.activity.navigator.ActivityTarget
@@ -30,6 +31,7 @@ class LoginActivity: AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var buttonLogin: Button
+    private lateinit var buttonSettings: Button
 
     //Permissions
     private lateinit var androidPermissionService: AndroidPermissionService
@@ -43,16 +45,13 @@ class LoginActivity: AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         //Initialising the components
-        tvUsername = findViewById(R.id.tvPassword)
-        tvPassword = findViewById(R.id.tvUsername)
-        tvPrompt = findViewById(R.id.tvPrompt)
-        etUsername = findViewById(R.id.etUsername)
-        etPassword = findViewById(R.id.etPassword)
-        buttonLogin = findViewById(R.id.buttonLogin)
-
-        //Use if you want to change value in shared preferences
-        val prefs = getSharedPreferences("com.fsm.mobile", MODE_PRIVATE)
-        prefs.edit().putString("server-ip", "192.168.0.181").putString("server-port", "9999").apply()
+        this.tvUsername = findViewById(R.id.tvPassword)
+        this.tvPassword = findViewById(R.id.tvUsername)
+        this.tvPrompt = findViewById(R.id.tvPrompt)
+        this.etUsername = findViewById(R.id.etUsername)
+        this.etPassword = findViewById(R.id.etPassword)
+        this.buttonLogin = findViewById(R.id.buttonLogin)
+        this.buttonSettings = findViewById(R.id.buttonSettings)
 
         HttpClient.init(this)
 
@@ -73,6 +72,29 @@ class LoginActivity: AppCompatActivity() {
                 waitingForLogin = true
                 androidPermissionService.requestPermission(PermissionType.ACCESS_LOCAL_NETWORK)
             }
+        }
+
+        buttonSettings.setOnClickListener {
+            Log.i("Self", "Login Settings button pressed")
+
+            AlertDialog.Builder(this)
+                .setTitle("Caution!")
+                .setMessage("Editing these settings could cause the app to behave in unexpected ways. " +
+                        "Are you sure you want to proceed?")
+                .setPositiveButton("Proceed") {dialogue, _ -> //Load the login settings
+                    Log.i("Self", "Login Settings Alert Proceed pressed")
+                    dialogue.dismiss()
+                    val androidActivityService = AndroidActivityService(this)
+                    androidActivityService.navigateTo(ActivityTarget.LOGIN_SETTINGS)
+                }
+                .setNegativeButton("Cancel") {dialogue, _ ->
+                    Log.i("Self", "Login Settings Alert Cancel pressed")
+                    dialogue.dismiss()
+                }
+                .show()
+
+
+
 
         }
     }

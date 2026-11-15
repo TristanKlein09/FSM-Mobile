@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 object HttpClient {
     private var client = OkHttpClient()
     private val callTimeout = 15//Maximum time to wait for the entire client-server communication process (seconds)
-    private lateinit var SERVER_URL: String
+    private var SERVER_URL: String = ""
 
     /**
      * Initialises the singleton object.
@@ -89,5 +89,15 @@ object HttpClient {
         }
 
     }
+
+    fun updateServerURL(context: Context) {
+        val prefs = context.getSharedPreferences("com.fsm.mobile", MODE_PRIVATE)
+        val ip = prefs.getString("server-ip", null) //p1 is the default value
+        val port = prefs.getString("server-port", null)
+        this.SERVER_URL = "http://$ip:$port"
+        Log.i("Self", "Server URL: ${this.SERVER_URL}")
+    }
+
+
 
 }

@@ -5,5 +5,6 @@ package com.fsm.mobile.activity.navigator
  */
 enum class ActivityTarget {
     LOGIN,
+    LOGIN_SETTINGS,
     HOME
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.fsm.mobile.activity.HomeActivity
 import com.fsm.mobile.activity.LoginActivity
+import com.fsm.mobile.activity.LoginSettingsActivity
 import com.fsm.mobile.activity.navigator.ActivityService
 import com.fsm.mobile.activity.navigator.ActivityTarget
 
@@ -22,6 +23,7 @@ class AndroidActivityService(private val context: Context): ActivityService {
         val intent = when (target) {
             ActivityTarget.LOGIN -> Intent(context, LoginActivity::class.java)
             ActivityTarget.HOME -> Intent(context, HomeActivity::class.java)
+            ActivityTarget.LOGIN_SETTINGS -> Intent(context, LoginSettingsActivity::class.java)
         }
 
         context.startActivity(intent)
