@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#03a9f4</color>
+    <color name="primary_light">#b3e5fc</color>
+    <color name="primary_dark">#0288d1</color>
+    <color name="primary_hover">#05a2eb</color>
+    <color name="primary_select">#0694d6</color>
+
+    <color name="accent">#ffc107</color>
 
     <color name="error">#ff1212</color>
+
+    <color name="background">#fdfdfd</color>
+    <color name="surface">#ffffff</color>
+    <color name="divider">#dedede</color>
+    <color name="darker">#cccccc</color>
+
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
 </resources>

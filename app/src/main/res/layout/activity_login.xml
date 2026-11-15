@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="233dp"
+        android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_marginTop="300dp"
         android:ems="10"
@@ -49,7 +49,7 @@
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="228dp"
+        android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_marginTop="50dp"
         android:ems="10"
@@ -62,9 +62,10 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Login"
+        app:cornerRadius="30px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
