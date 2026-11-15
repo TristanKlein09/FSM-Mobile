@@ -18,10 +18,8 @@ class AndroidPermissionService(private val context: Context): PermissionService{
      * @return [Boolean] which states whether the permission is granted or not.
      */
     override fun requestPermission(permission: PermissionType): Boolean {
-        val activity = context as Activity
-
         when (permission) {
-            PermissionType.ACCESS_LOCAL_NETWORK -> return requestACCESS_LOCAL_NETWORK()
+            PermissionType.ACCESS_LOCAL_NETWORK -> return requestAccessLocalNetwork()
         }
 
     }
@@ -31,21 +29,21 @@ class AndroidPermissionService(private val context: Context): PermissionService{
      * user for that permission
      * @return whether the permission has been granted
      */
-    private fun requestACCESS_LOCAL_NETWORK(): Boolean {
+    private fun requestAccessLocalNetwork(): Boolean {
         //If permission is not already granted, then open up the window to ask for it
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_LOCAL_NETWORK) != PackageManager.PERMISSION_GRANTED) {
+        return if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_LOCAL_NETWORK) != PackageManager.PERMISSION_GRANTED) {
             val activity = context as Activity
             activity.requestPermissions(arrayOf(android.Manifest.permission.ACCESS_LOCAL_NETWORK), 0)
 
             //Check again if they gave permission
             if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_LOCAL_NETWORK) == PackageManager.PERMISSION_GRANTED) {
-                return true
+                true
             } else {
-                return false
+                false
             }
 
         } else {
-            return true
+            true
         }
     }
 }

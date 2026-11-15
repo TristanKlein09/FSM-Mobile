@@ -7,14 +7,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fsm.mobile.activity.navigator.ActivityTarget
 import com.fsm.mobile.models.Pair
 import com.fsm.mobile.network.HttpClient
-import com.fsm.mobile.permission.PermissionService
 import com.fsm.mobile.permission.PermissionType
 import com.fsm.mobile.service.AndroidActivityService
 import com.fsm.mobile.service.AndroidPermissionService
@@ -107,7 +105,7 @@ class LoginActivity: AppCompatActivity() {
      * @param password password to authenticate
      */
     private suspend fun login(username: String, password: String) {
-        val canLogin = HttpClient.login(this, this, username, password)
+        val canLogin = HttpClient.login(username, password)
 
         when(canLogin) {
             //Login is successful
@@ -166,7 +164,6 @@ class LoginActivity: AppCompatActivity() {
      * @param text Text to change the prompt label to
      */
     private fun setPrompt(text: String) {
-        tvPrompt.text = text;
+        tvPrompt.text = text
     }
-
 }

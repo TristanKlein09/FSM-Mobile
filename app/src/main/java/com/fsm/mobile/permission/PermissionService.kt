@@ -1,8 +1,5 @@
 package com.fsm.mobile.permission
 
-import android.content.Context
-import okhttp3.Callback
-
 /**
  * Interface class for global management of application permissions
  */

@@ -1,6 +1,5 @@
 package com.fsm.mobile.network
 
-import android.app.Activity
 import com.fsm.mobile.models.Credentials
 import com.fsm.mobile.models.Pair
 
@@ -13,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
-import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -27,7 +25,7 @@ import java.util.concurrent.TimeUnit
  */
 object HttpClient {
     private var client = OkHttpClient()
-    private val callTimeout = 15//Maximum time to wait for the entire client-server communication process (seconds)
+    private const val CALL_TIMEOUT = 15//Maximum time to wait for the entire client-server communication process (seconds)
     private var SERVER_URL: String = ""
 
     /**
@@ -43,7 +41,7 @@ object HttpClient {
         //Specifying the properties of the client
         client = OkHttpClient.Builder()
             //maximum time to wait for the entire client-server communication process
-            .callTimeout(callTimeout.toLong(), TimeUnit.SECONDS)
+            .callTimeout(CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .build()
     }
 
@@ -58,9 +56,8 @@ object HttpClient {
      * Pair(false, "Incorrect credentials"), any other code: Pair(false, "Unexpected server error occurred").
      * If no response was received from the server: Pair(false, "No response from server")
      */
-    suspend fun login(activity: Activity, context: Context, username: String, password: String): Pair<Boolean, String> = withContext(
+    suspend fun login(username: String, password: String): Pair<Boolean, String> = withContext(
         Dispatchers.IO){
-        var success = Pair<Boolean, String>(false, "") //Initialising the return variable
         //Serialising username and password to json
         val credentials = Credentials(username, password)
         val jsonCredentials = Json.encodeToString(credentials)

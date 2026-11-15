@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import com.fsm.mobile.network.HttpClient
+import androidx.core.content.edit
 
 class LoginSettingsActivity: AppCompatActivity() {
     private lateinit var tvTitle: TextView
@@ -42,12 +43,14 @@ class LoginSettingsActivity: AppCompatActivity() {
             Log.i("Self", "Login Settings Button Pressed")
 
             val prefs = getSharedPreferences("com.fsm.mobile", MODE_PRIVATE)
-            prefs.edit().putString("server-ip", etIP.text.toString())
-                .putString("server-port", etPort.text.toString()).apply()
+            prefs.edit {
+                putString("server-ip", etIP.text.toString())
+                    .putString("server-port", etPort.text.toString())
+            }
 
             HttpClient.updateServerURL(this)
 
-            Toast.makeText(this, "Settings applied", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Settings applied", Toast.LENGTH_SHORT).show()
         }
 
     }
