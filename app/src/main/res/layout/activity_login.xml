@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
 
     <TextView
         android:id="@+id/tvPrompt"
+        style="@style/BodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
@@ -16,6 +18,7 @@
 
     <TextView
         android:id="@+id/tvUsername"
+        style="@style/Subheading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
@@ -26,6 +29,7 @@
 
     <TextView
         android:id="@+id/tvPassword"
+        style="@style/Subheading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password"
@@ -36,6 +40,7 @@
 
     <EditText
         android:id="@+id/etUsername"
+        style=""
         android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_marginTop="300dp"
@@ -49,6 +54,7 @@
 
     <EditText
         android:id="@+id/etPassword"
+        style=""
         android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_marginTop="50dp"
@@ -62,24 +68,29 @@
 
     <Button
         android:id="@+id/buttonLogin"
+        style="@style/PrimaryButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Login"
-        app:cornerRadius="30px"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
-    <Button
-        android:id="@+id/buttonSettings"
-        android:layout_width="120dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
+    <TextView
+        android:id="@+id/tvSettings"
+        style="@style/ClickableTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Settings"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

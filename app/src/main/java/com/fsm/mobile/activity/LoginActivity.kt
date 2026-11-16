@@ -1,5 +1,7 @@
 package com.fsm.mobile.activity
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import com.fsm.mobile.R
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.fsm.mobile.activity.navigator.ActivityTarget
 import com.fsm.mobile.models.Pair
@@ -29,7 +32,7 @@ class LoginActivity: AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var buttonLogin: Button
-    private lateinit var buttonSettings: Button
+    private lateinit var tvSettings: TextView
 
     //Permissions
     private lateinit var androidPermissionService: AndroidPermissionService
@@ -37,10 +40,18 @@ class LoginActivity: AppCompatActivity() {
     private var waitingForLogin: Boolean = false //Track if a login was attempted before a permission prompt
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Force light mode
+        AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_NO
+        )
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
+
+
 
         //Initialising the components
         this.tvUsername = findViewById(R.id.tvPassword)
@@ -49,7 +60,8 @@ class LoginActivity: AppCompatActivity() {
         this.etUsername = findViewById(R.id.etUsername)
         this.etPassword = findViewById(R.id.etPassword)
         this.buttonLogin = findViewById(R.id.buttonLogin)
-        this.buttonSettings = findViewById(R.id.buttonSettings)
+        this.tvSettings = findViewById(R.id.tvSettings)
+        tvSettings.paintFlags = Paint.UNDERLINE_TEXT_FLAG //underlining the text
 
         HttpClient.init(this)
 
@@ -72,7 +84,7 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-        buttonSettings.setOnClickListener {
+        tvSettings.setOnClickListener {
             Log.i("Self", "Login Settings button pressed")
 
             AlertDialog.Builder(this)
