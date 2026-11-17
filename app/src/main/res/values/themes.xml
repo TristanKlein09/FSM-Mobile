@@ -12,17 +12,26 @@
         <item name="android:textColor">
             @color/text_primary
         </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
+        </item>
+        <item name="android:textFontWeight">
+            650
+        </item>
         <item name="android:backgroundTint">
             @color/primary
         </item>
         <item name="android:textSize">
-            15sp
+            16sp
         </item>
     </style>
 
     <style name="ClickableTextView">
         <item name="android:textColor">
             @color/text_secondary
+        </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
         </item>
         <item name="android:textSize">
             15sp
@@ -33,14 +42,23 @@
         <item name="android:textColor">
             @color/text_primary
         </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
+        </item>
+        <item name="android:textFontWeight">
+            600
+        </item>
         <item name="android:textSize">
-            28sp
+            32sp
         </item>
     </style>
 
     <style name="SectionHeading">
         <item name="android:textColor">
             @color/text_primary
+        </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
         </item>
         <item name="android:textSize">
             20sp
@@ -51,6 +69,9 @@
         <item name="android:textColor">
             @color/text_primary
         </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
+        </item>
         <item name="android:textSize">
             16sp
         </item>
@@ -60,6 +81,9 @@
         <item name="android:textColor">
             @color/text_primary
         </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
+        </item>
         <item name="android:textSize">
             14sp
         </item>
@@ -68,6 +92,9 @@
     <style name="SupportingText">
         <item name="android:textColor">
             @color/text_primary
+        </item>
+        <item name="android:fontFamily">
+            @font/dmsans_variablefont
         </item>
         <item name="android:textSize">
             12sp

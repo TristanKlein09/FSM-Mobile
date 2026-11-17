@@ -19,6 +19,8 @@ import com.fsm.mobile.network.HttpClient
 import com.fsm.mobile.permission.PermissionType
 import com.fsm.mobile.service.AndroidActivityService
 import com.fsm.mobile.service.AndroidPermissionService
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 /**
@@ -26,11 +28,11 @@ import kotlinx.coroutines.launch
  */
 class LoginActivity: AppCompatActivity() {
     //Components
-    private lateinit var tvUsername: TextView
-    private lateinit var tvPassword: TextView
+    //private lateinit var tvUsername: TextView
+    //private lateinit var tvPassword: TextView
     private lateinit var tvPrompt: TextView
-    private lateinit var etUsername: EditText
-    private lateinit var etPassword: EditText
+    private lateinit var etUsername: TextInputEditText
+    private lateinit var etPassword: TextInputEditText
     private lateinit var buttonLogin: Button
     private lateinit var tvSettings: TextView
 
@@ -54,8 +56,8 @@ class LoginActivity: AppCompatActivity() {
 
 
         //Initialising the components
-        this.tvUsername = findViewById(R.id.tvPassword)
-        this.tvPassword = findViewById(R.id.tvUsername)
+        //this.tvUsername = findViewById(R.id.tvPassword)
+        //this.tvPassword = findViewById(R.id.tvUsername)
         this.tvPrompt = findViewById(R.id.tvPrompt)
         this.etUsername = findViewById(R.id.etUsername)
         this.etPassword = findViewById(R.id.etPassword)
@@ -87,7 +89,7 @@ class LoginActivity: AppCompatActivity() {
         tvSettings.setOnClickListener {
             Log.i("Self", "Login Settings button pressed")
 
-            AlertDialog.Builder(this)
+            val dialogue = MaterialAlertDialogBuilder(this)
                 .setTitle("Caution!")
                 .setMessage("Editing these settings could cause the app to behave in unexpected ways. " +
                         "Are you sure you want to proceed?")
@@ -103,9 +105,11 @@ class LoginActivity: AppCompatActivity() {
                 }
                 .show()
 
+            dialogue.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(getColor(R.color.text_secondary))
 
-
-
+            dialogue.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(getColor(R.color.primary))
         }
     }
 
