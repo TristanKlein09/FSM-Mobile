@@ -11,13 +11,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import com.fsm.mobile.network.HttpClient
 import androidx.core.content.edit
+import com.google.android.material.textfield.TextInputEditText
 
 class LoginSettingsActivity: AppCompatActivity() {
     private lateinit var tvTitle: TextView
-    private lateinit var tvIP: TextView
-    private lateinit var tvPort: TextView
-    private lateinit var etIP: EditText
-    private lateinit var etPort: EditText
+    private lateinit var etIP: TextInputEditText
+    private lateinit var etPort: TextInputEditText
     private lateinit var buttonSave: Button
 
 
@@ -28,8 +27,6 @@ class LoginSettingsActivity: AppCompatActivity() {
 
         //Initialising components
         this.tvTitle = findViewById(R.id.tvTitle)
-        this.tvIP = findViewById(R.id.tvIP)
-        this.tvPort = findViewById(R.id.tvPort)
         this.etIP = findViewById(R.id.etIP)
         this.etPort = findViewById(R.id.etPort)
         this.buttonSave = findViewById(R.id.buttonSave)

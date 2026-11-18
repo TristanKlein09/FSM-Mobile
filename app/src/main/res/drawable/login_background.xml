@@ -15,7 +15,7 @@
     </item>
 
     <!-- Top layer -->
-    <item android:top="350dp">
+    <item android:top="275dp">
         <shape>
             <solid android:color="#FFFFFF"/>
             <corners android:topLeftRadius="38dp"

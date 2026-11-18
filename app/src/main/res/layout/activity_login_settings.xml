@@ -20,66 +20,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvIP"
-        style="@style/Subheading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Server IP address"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <EditText
-        android:id="@+id/etIP"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIP"
+        style="@style/TextInputLayout"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="@+id/tvIP"
+        android:layout_marginTop="50dp"
+        android:hint="Server IP address"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/tvIP"
-        app:layout_constraintTop_toBottomOf="@+id/tvIP"
-        tools:text="localhost" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-    <EditText
-        android:id="@+id/etPort"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etIP"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            tools:text="localhost" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPort"
+        style="@style/TextInputLayout"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="@+id/tvPort"
-        app:layout_constraintStart_toStartOf="@+id/tvPort"
-        app:layout_constraintTop_toBottomOf="@+id/tvPort"
-        tools:text="9999" />
+        android:layout_marginTop="20dp"
+        android:hint="Server port"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilIP">
 
-    <TextView
-        android:id="@+id/tvPort"
-        style="@style/Subheading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Server port"
-        app:layout_constraintEnd_toEndOf="@+id/etIP"
-        app:layout_constraintStart_toStartOf="@+id/etIP"
-        app:layout_constraintTop_toBottomOf="@+id/etIP" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPort"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            tools:text="9999" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/buttonSave"
         style="@style/PrimaryButton"
         android:layout_width="280dp"
         android:layout_height="43dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:text="Save"
         app:cornerRadius="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/etPort"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etPort"
-        app:layout_constraintTop_toBottomOf="@+id/etPort" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPort" />
 </androidx.constraintlayout.widget.ConstraintLayout>

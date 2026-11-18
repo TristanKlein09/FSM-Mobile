@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FSMMobile" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
 
     </style>
 
@@ -99,5 +99,17 @@
         <item name="android:textSize">
             12sp
         </item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">
+            @color/primary
+        </item>
+        <item name="hintTextColor">
+            @color/primary
+        </item>
+    </style>
+
+    <style name="EditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
     </style>
 </resources>
